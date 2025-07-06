@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cortex Challenge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Montserrat:wght@500&display=swap" rel="stylesheet">
+  <style>
+body {
+  background: radial-gradient(ellipse at 55% 30%, #e6f0fa 70%, #b8deff 100%);
+  min-height: 100vh;
+  font-family: 'Montserrat', Arial, sans-serif;
+  display: flex; flex-direction: column; align-items: center;
+}
+.title {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 2.2em;
+  color: #522ab6;
+  margin: 26px 0 8px 0;
+  letter-spacing: 2.1px;
+  text-align: center;
+  text-shadow: 0 2px 18px #a19bff60, 2px 2px 0 #fff;
+  max-width: 98vw;
+  word-break: break-word;
+  line-height: 1.1;
+}
+.card-counter-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+  margin-top: 2px;
+}
+.card-counter-outer {
+  background: linear-gradient(135deg, #fffbe7 0%, #ece6ff 70%);
+  box-shadow: 0 4px 14px #b3c6fa33;
+  border-radius: 100px;
+  padding: 0.65em 1.35em 0.65em 1.25em;
+  display: flex;
+  align-items: center;
+  font-size: 1.13em;
+  font-family: 'Luckiest Guy', cursive;
+  color: #4a2c94;
+  font-weight: bold;
+  letter-spacing: 1.2px;
+  min-width: 85px;
+  border: 3px solid #8570e6b9;
+}
+.card-counter-outer span:first-child {
+  font-size: 1em;
+  color: #4a2c94;
+  margin-right: 7px;
+  letter-spacing: 1px;
+}
+.counter-num {
+  font-size: 1.25em;
+  color: #1e0e55;
+  margin: 0 0 0 2px;
+  font-weight: bold;
+  font-family: 'Luckiest Guy', cursive;
+  letter-spacing: 2px;
+  border-radius: 8px;
+}
+.card-btn {
+  width: 62px; height: 62px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg,#7f72f4 60%,#53bbff 100%);
+  color: #fff;
+  font-size: 2.7em;
+  font-family: 'Luckiest Guy', cursive;
+  box-shadow: 0 2px 18px #6e4af877;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .14s, transform .13s;
+  outline: none;
+  user-select: none;
+  margin: 0 2px;
+  z-index: 1;
+}
+.card-btn:active { background: #62a7ff; transform: scale(0.92);}
+#history-btn {
+  margin-left: 10px;
+  background: linear-gradient(90deg, #ffd96c 0%, #ffeabb 100%);
+  color: #8d6600;
+  font-size: 1em;
+  border-radius: 1.4em;
+  padding: 0.42em 1.1em;
+  border: none;
+  font-family: 'Luckiest Guy', cursive;
+  font-weight: bold;
+  box-shadow: 0 3px 10px #ffd96666;
+  transition: background .17s, transform .12s;
+  cursor: pointer;
+}
+#history-btn:active { background: #ffcf8f; transform: scale(0.96);}
+#history-log {
+  font-size: 1em;
+  margin-bottom: 10px;
+  font-family: 'Montserrat', Arial, sans-serif;
+  color: #444;
+  text-align: center;
+  min-height: 1.5em;
+  letter-spacing: 1.1px;
+}
+.main-card {
+  background: rgba(255,255,255,0.96);
+  border-radius: 40px;
+  box-shadow: 0 16px 64px #4a70b466, 0 2px 0 #fff7;
+  padding: 28px 4vw 34px 4vw;
+  max-width: 490px;
+  width: 100%;
+  margin: 8px 0 38px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  backdrop-filter: blur(2px);
+  animation: popIn .4s;
+}
+.desc {
+  font-size: 1.18em;
+  color: #444;
+  margin-bottom: 10px;
+  text-align: center;
+  text-shadow: 0 1px 10px #fff7;
+  letter-spacing: 0.2px;
+}
+.big-card-brain {
+  background: #fff;
+  border-radius: 32px;
+  box-shadow: 0 6px 36px #d0d6ff44;
+  margin: 12px 0 0 0;
+  padding: 22px 0;
+  width: 100%;
+  display: flex; flex-direction: column; align-items: center;
+  max-width: 390px;
+}
+.svg-wrap {
+  width: 100%; max-width: 375px; margin: 0 auto 0 auto; display: flex; justify-content: center;
+  filter: drop-shadow(0 2px 24px #7e94ec29);
+}
+#brain {
+  width: 93vw; max-width: 340px; min-width: 160px; height: auto; display: block; margin: 0 auto;
+  touch-action: manipulation; transition: max-width 0.2s;
+  background: none;
+  border-radius: 44px;
+  box-shadow: 0 2px 18px #0001;
+  padding: 0.3em;
+}
+.quadrant path {
+  cursor: pointer;
+  transition: filter 0.21s, transform 0.17s, fill 0.43s;
+}
+.quadrant path:hover {
+  filter: brightness(1.18) drop-shadow(0 3px 18px #d8caf044);
+  transform: scale(1.028);
+  stroke-width: 8 !important;
+  opacity: 0.9;
+}
+.quadrant path:active {
+  filter: brightness(1.28) drop-shadow(0 2px 22px #a996ec33);
+  transform: scale(1.04);
+  opacity: 1;
+}
+.progressbar-wrap {
+  width: 98%;
+  margin: 13px auto 0 auto;
+  height: 26px;
+  background: #e7e4ff;
+  border-radius: 14px;
+  box-shadow: 0 2px 14px #c3bcff33;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.progressbar-inner {
+  height: 100%;
+  border-radius: 14px;
+  background: linear-gradient(90deg,#7845c5,#7dd888,#ffe080,#fdc657);
+  width: 0%;
+  transition: width .43s cubic-bezier(.47,.6,.54,1.43);
+  box-shadow: 0 0px 9px #dabfff59;
+}
+.progressbar-label {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #522ab6;
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 1.07em;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 10px #fff7;
+  z-index: 1;
+  pointer-events: none;
+  font-weight: bold;
+}
+.reset-btn {
+  display: inline-block;
+  margin-top: 19px;
+  padding: 1em 2.7em;
+  background: linear-gradient(90deg, #7845c5 0%, #4189ff 100%);
+  color: #fff;
+  font-size: 1.12em;
+  border: none;
+  border-radius: 2em;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 1px;
+  box-shadow: 0 6px 22px #48307734, 0 2px 0 #fff2;
+  transition: background .22s, transform .14s, box-shadow .16s;
+  outline: none;
+}
+.reset-btn:active {
+  background: linear-gradient(90deg, #4189ff 0%, #7845c5 100%);
+  transform: scale(0.97);
+  box-shadow: 0 1px 4px #48307718;
+}
+.reset-btn:hover {
+  background: linear-gradient(90deg, #5b38b0 0%, #2e5bb8 100%);
+  transform: scale(1.06);
+}
+#popup, #win-popup, #card-popup {
+  display: none;
+  position: fixed; left: 0; top: 0; width: 100vw; height: 100vh;
+  background: rgba(34,30,60,0.21);
+  align-items: center; justify-content: center;
+  z-index: 99;
+  animation: fadeInBg 0.25s;
+}
+@keyframes fadeInBg {
+  from { background: rgba(34,30,60,0); }
+  to   { background: rgba(34,30,60,0.21);}
+}
+#popup-content, #win-content, #card-popup-content {
+  background: linear-gradient(135deg, #fff 60%, #e6f0fa 100%);
+  padding: 2.5em 1.7em 1.6em 1.7em;
+  border-radius: 40px;
+  box-shadow: 0 14px 56px #49307954, 0 2px 0 #fff4;
+  font-size: 1.3em;
+  text-align: center;
+  min-width: 240px;
+  max-width: 98vw;
+  border: 4px solid #7c56e6;
+  animation: popIn 0.22s cubic-bezier(.7,-0.4,.9,1.7);
+  position: relative;
+}
+@keyframes popIn {
+  0% { transform: scale(0.6); opacity: 0; }
+  80%{ transform: scale(1.07); }
+  100%{ transform: scale(1); opacity: 1; }
+}
+#popup-content button, #win-content button, #card-popup-content button {
+  margin: 16px 14px 0 14px;
+  padding: 0.7em 2.3em;
+  font-size: 1.08em;
+  border-radius: 1.7em;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(90deg, #6b3ad6 0%, #3a7ad6 100%);
+  color: #fff;
+  font-weight: 700;
+  font-family: 'Montserrat', Arial, sans-serif;
+  box-shadow: 0 2px 14px #49307944;
+  transition: background .19s, transform .13s;
+  outline: none;
+}
+#popup-content button:hover, #win-content button:hover, #card-popup-content button:hover {
+  background: linear-gradient(90deg, #3a7ad6 0%, #6b3ad6 100%);
+  transform: scale(1.08);
+}
+.smile-img, .sad-img {
+  width: 85px;
+  margin: 0.7em auto 0.4em auto;
+  display: block;
+  filter: drop-shadow(0 3px 14px #ffe77f77);
+  animation: popIn 0.18s;
+}
+.sad-img { filter: drop-shadow(0 3px 10px #ff7f7f77);}
+@media (max-width: 700px) {
+  .title { font-size: 1.09em;}
+  .main-card { padding: 5px 1vw 12px 1vw; border-radius: 17px; }
+  .card-counter-row { gap: 6px;}
+  .card-counter-outer { font-size: 0.88em; min-width: 46px; padding: 0.38em 0.5em;}
+  .counter-num { font-size: 0.9em;}
+  .card-btn { font-size: 1.5em; width: 38px; height: 38px;}
+  #history-btn { font-size: 0.77em; padding: 0.22em 0.38em;}
+  .big-card-brain { padding: 6px 0; border-radius: 8px; }
+  #brain { max-width: 97vw; min-width: 90px;}
+  .progressbar-wrap { height: 14px;}
+  .progressbar-label { font-size: 0.74em;}
+  .reset-btn { font-size: 0.89em; padding: 0.7em 1.6em; }
+  #popup-content, #win-content, #card-popup-content { font-size: 0.99em; padding: 1.2em 0.7em; min-width: 0;}
+  .smile-img, .sad-img { width: 45px;}
+}
+  </style>
+</head>
+<body>
+  <div class="title">Welcome To Cortex Challenge</div>
+  <div class="card-counter-row">
+    <div class="card-counter-outer" id="card-counter-label">
+      <span>CARD</span>
+      <span class="counter-num" id="card-counter">0</span>
+    </div>
+    <button class="card-btn" onclick="addCard(1)">+</button>
+    <button class="card-btn" onclick="addCard(-1)">-</button>
+    <button id="history-btn" onclick="showHistory()">History</button>
+  </div>
+  <div id="history-log"></div>
+  <div class="main-card">
+    <div class="desc">Fill Your Brain to win!</div>
+    <div class="big-card-brain">
+      <div class="svg-wrap">
+        <svg id="brain" viewBox="0 0 400 400">
+          <ellipse cx="200" cy="200" rx="192" ry="192" fill="#fff" stroke="#222" stroke-width="11"/>
+          <!-- Top Left Quadrant -->
+          <g id="q1" class="quadrant" style="cursor:pointer">
+            <path d="M200,200 L200,26
+                     A174,174 0 0,0 26,200 Z"
+                  fill="#f7f7f7" stroke="#9c6cf2" stroke-width="3.6"/>
+            <path d="M100,100 Q130,140 62,190" fill="none" stroke="#bfa4ec" stroke-width="2.2" />
+            <path d="M135,85 Q120,140 90,180 Q80,190 110,200" fill="none" stroke="#bfa4ec" stroke-width="2.2" />
+            <path d="M180,55 Q130,110 150,170 Q152,175 120,180" fill="none" stroke="#bfa4ec" stroke-width="2.2"/>
+            <path d="M165,125 Q180,90 200,140" fill="none" stroke="#bfa4ec" stroke-width="2.2"/>
+          </g>
+          <!-- Top Right Quadrant -->
+          <g id="q2" class="quadrant" style="cursor:pointer">
+            <path d="M200,200 L200,26
+                     A174,174 0 0,1 374,200 Z"
+                  fill="#f7f7f7" stroke="#f6be57" stroke-width="3.6"/>
+            <path d="M300,90 Q265,145 338,190" fill="none" stroke="#ffe3a0" stroke-width="2.2"/>
+            <path d="M270,120 Q310,145 290,190 Q284,196 335,200" fill="none" stroke="#ffe3a0" stroke-width="2.2"/>
+            <path d="M230,55 Q280,110 250,170 Q248,175 280,180" fill="none" stroke="#ffe3a0" stroke-width="2.2"/>
+            <path d="M240,140 Q220,90 200,140" fill="none" stroke="#ffe3a0" stroke-width="2.2"/>
+          </g>
+          <!-- Bottom Left Quadrant -->
+          <g id="q3" class="quadrant" style="cursor:pointer">
+            <path d="M200,200 L26,200
+                     A174,174 0 0,0 200,374 Z"
+                  fill="#f7f7f7" stroke="#47b570" stroke-width="3.6"/>
+            <path d="M75,270 Q110,245 60,215" fill="none" stroke="#88d3aa" stroke-width="2.2"/>
+            <path d="M135,290 Q120,230 45,220 Q60,270 130,315" fill="none" stroke="#88d3aa" stroke-width="2.2"/>
+            <path d="M80,330 Q120,335 145,370" fill="none" stroke="#88d3aa" stroke-width="2.2"/>
+            <path d="M170,370 Q100,300 200,295" fill="none" stroke="#88d3aa" stroke-width="2.2"/>
+          </g>
+          <!-- Bottom Right Quadrant -->
+          <g id="q4" class="quadrant" style="cursor:pointer">
+            <path d="M200,200 L374,200
+                     A174,174 0 0,1 200,374 Z"
+                  fill="#f7f7f7" stroke="#ffe96a" stroke-width="3.6"/>
+            <path d="M320,270 Q290,245 340,215" fill="none" stroke="#fff39e" stroke-width="2.2"/>
+            <path d="M265,290 Q280,230 355,220 Q340,270 270,315" fill="none" stroke="#fff39e" stroke-width="2.2"/>
+            <path d="M320,330 Q280,335 255,370" fill="none" stroke="#fff39e" stroke-width="2.2"/>
+            <path d="M230,370 Q300,300 200,295" fill="none" stroke="#fff39e" stroke-width="2.2"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="progressbar-wrap">
+      <div class="progressbar-inner" id="progressbar-inner"></div>
+      <span class="progressbar-label" id="progressbar-label">0/4</span>
+    </div>
+    <button class="reset-btn" onclick="resetBrain()">Reset</button>
+  </div>
+  <!-- Popups -->
+  <div id="popup">
+    <div id="popup-content">
+      <div style="font-size:1.13em; font-family:'Luckiest Guy',cursive;color:#764cf8;">
+        Do you have the 2 requirement cards?
+      </div>
+      <div style="margin-top: 24px;">
+        <button onclick="popupConfirm(true)">Yes</button>
+        <button onclick="popupConfirm(false)">No</button>
+      </div>
+    </div>
+  </div>
+  <div id="win-popup">
+    <div id="win-content">
+      <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f604.svg" class="smile-img" alt="smile"/>
+      <div style="font-size:1.3em; font-family:'Luckiest Guy',cursive;color:#35ba3d;letter-spacing:1px;">
+        You Win!
+      </div>
+      <button onclick="resetBrain(true)">Play Again</button>
+    </div>
+  </div>
+  <div id="card-popup">
+    <div id="card-popup-content">
+      <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f614.svg" class="sad-img" alt="sad"/>
+      <div style="font-size:1.09em; font-family:'Luckiest Guy',cursive;color:#db2f2f; margin-bottom: 1.2em;">
+        You need <b>2 cards</b> to trade for 1 brain part!
+      </div>
+      <button onclick="closeCardPopup()">OK</button>
+    </div>
+  </div>
+  <script>
+    let cardCounter = 0;
+    let winHistory = 0;
+    function updateCounter() {
+      document.getElementById('card-counter').textContent = cardCounter;
+    }
+    function addCard(n) {
+      cardCounter = Math.max(0, cardCounter + n);
+      updateCounter();
+    }
+
+    const quadrantColors = {
+      q1: "#d8c3fd",
+      q2: "#ffe095",
+      q3: "#7ce79d",
+      q4: "#fff785"
+    };
+    let state = { q1: false, q2: false, q3: false, q4: false };
+    let currentQuadrant = null;
+
+    ["q1", "q2", "q3", "q4"].forEach(qid => {
+      document.getElementById(qid).addEventListener("click", function() {
+        if(state[qid]) return;
+        currentQuadrant = qid;
+        if(cardCounter < 2) {
+          document.getElementById("card-popup").style.display = "flex";
+          return;
+        }
+        document.getElementById("popup").style.display = "flex";
+      });
+    });
+
+    window.popupConfirm = function(answer) {
+      document.getElementById("popup").style.display = "none";
+      if(answer && currentQuadrant) {
+        let quad = document.querySelector(`#${currentQuadrant} path`);
+        quad.setAttribute("fill", quadrantColors[currentQuadrant]);
+        quad.style.transition = "fill 0.4s";
+        state[currentQuadrant] = true;
+        cardCounter -= 2;
+        updateCounter();
+        updateProgress();
+        checkWin();
+      }
+      currentQuadrant = null;
+    };
+
+    function checkWin() {
+      if(state.q1 && state.q2 && state.q3 && state.q4) {
+        setTimeout(()=>{
+          document.getElementById("win-popup").style.display = "flex";
+          winHistory++;
+        }, 400);
+      }
+    }
+
+    function updateProgress() {
+      let fillCount = Object.values(state).filter(v=>v).length;
+      let percent = Math.min(100, fillCount * 25);
+      document.getElementById('progressbar-inner').style.width = percent + '%';
+      document.getElementById('progressbar-label').textContent = `${fillCount}/4`;
+    }
+
+    function resetBrain(hideWin) {
+      ["q1", "q2", "q3", "q4"].forEach(qid => {
+        let quad = document.querySelector(`#${qid} path`);
+        quad.setAttribute("fill", "#f7f7f7");
+        state[qid] = false;
+      });
+      if(hideWin) document.getElementById("win-popup").style.display = "none";
+      cardCounter = 0;
+      updateCounter();
+      updateProgress();
+      updateHistory();
+    }
+
+    function closeCardPopup() {
+      document.getElementById("card-popup").style.display = "none";
+    }
+
+    function showHistory() {
+      updateHistory();
+      let txt = winHistory === 0 ? "No wins yet." :
+        `<b>Total Wins:</b> <span style="color:#4225bb">${winHistory}</span>`;
+      document.getElementById('history-log').innerHTML = txt;
+      setTimeout(()=>{ document.getElementById('history-log').innerHTML=''; }, 3000);
+    }
+    function updateHistory() {}
+    updateCounter();
+    updateProgress();
+  </script>
+</body>
+</html>
