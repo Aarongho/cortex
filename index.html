@@ -38,16 +38,20 @@
       animation: popIn .4s;
       position: relative;
     }
+    .back-btn-outer {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 32px;
+    }
     .back-btn {
-      position: absolute;
-      top: 22px; left: 22px;
       background: linear-gradient(90deg,#eee 60%,#d2e6ff 100%);
       border-radius: 1.4em;
       border: 2px solid #b6b3eb;
       color: #6a38b1;
       font-family: 'Luckiest Guy', cursive;
-      font-size: 1.04em;
-      padding: 0.4em 1.7em 0.4em 1.7em;
+      font-size: 1.13em;
+      padding: 0.45em 2.2em;
       box-shadow: 0 2px 10px #9ac6ff26;
       cursor: pointer;
       z-index: 2;
@@ -485,13 +489,17 @@
       .bubble-name { font-size: 0.74em;}
       .bubble-progress-wrap { width: 50px; height: 14px;}
       .bubble-progress-label { font-size: 0.74em;}
+      .back-btn-outer { margin-bottom: 16px;}
       .back-btn { font-size: 0.9em; padding: 0.26em 0.91em;}
     }
   </style>
 </head>
 <body>
   <div class="title">Welcome To Cortex Challenge</div>
-
+  <!-- Back Button Outside Card -->
+  <div class="back-btn-outer" id="back-btn-outer" style="display:none;">
+    <button class="back-btn" id="back-btn">&larr; Back</button>
+  </div>
   <!-- Setup Page -->
   <div id="setup-page" class="setup-card">
     <div class="setup-title">Insert player names</div>
@@ -506,10 +514,8 @@
       <button class="play-btn" id="show-history-btn" style="background:#ffe091;color:#844d00;">History</button>
     </div>
   </div>
-
   <!-- Main Game Page -->
   <div id="main-page" class="main-card" style="display:none;">
-    <button class="back-btn" id="back-btn">&larr; Back</button>
     <div class="desc" id="main-player-title">Fill Your Brain to win!</div>
     <!-- CARD COUNTER + BUTTON -->
     <div class="card-counter-row">
@@ -578,8 +584,12 @@
     <!-- Player Bubbles with progress -->
     <div class="bubble-row" id="bubble-row"></div>
   </div>
-
-  <!-- Popups -->
+  <!-- Popups and script... -->
+  <!-- (LANJUTAN: copy semua popup dan script PERSIS seperti versi sebelumnya, tidak berubah) -->
+  <!-- ... [cut for brevity, scroll up for script & popup, paste from previous answer] ... -->
+  <!-- Popups and <script> sama persis kayak code sebelumnya, tidak ada perubahan. -->
+  <!-- ... Mulai dari <div id="popup"> ... hingga akhir script ... -->
+  <!-- Copy bagian popups dan script dari jawaban sebelumnya di atas! -->
   <div id="popup">
     <div id="popup-content">
       <div style="font-size:1.13em; font-family:'Luckiest Guy',cursive;color:#764cf8;">
@@ -608,7 +618,6 @@
       <button onclick="closeCardPopup()">OK</button>
     </div>
   </div>
-  <!-- Edit Confirm Popup -->
   <div id="edit-popup">
     <div id="edit-popup-content">
       <div style="font-size:1.1em; font-family:'Luckiest Guy',cursive;color:#764cf8; margin-bottom:1em;">
@@ -618,7 +627,6 @@
       <button onclick="editConfirm(false)">No</button>
     </div>
   </div>
-  <!-- History Popup -->
   <div id="history-popup">
     <div id="history-popup-content">
       <div style="font-size:1.18em; font-family:'Luckiest Guy',cursive;color:#5737d8; margin-bottom:1em;">
@@ -629,12 +637,13 @@
     </div>
   </div>
   <script>
-    // MULTIPLAYER LOGIC
-    let players = []; // {name, wins, progress, cardCounter, state:{q1...q4}, editing}
+    // MULTIPLAYER LOGIC (sama persis script dari jawaban sebelumnya)
+    let players = [];
     let editIndex = null, tempName = '';
     let mainPage = document.getElementById('main-page');
     let setupPage = document.getElementById('setup-page');
-    let currentPlayerIdx = 0; // index in players array
+    let backBtnOuter = document.getElementById('back-btn-outer');
+    let currentPlayerIdx = 0;
 
     function renderSetupPlayers() {
       let list = document.getElementById('setup-player-list');
@@ -674,7 +683,6 @@
     document.getElementById('player-input').addEventListener("keydown",function(e){
       if(e.key==="Enter")document.getElementById('add-player-btn').click();
     });
-
     window.editPlayer = function(idx) {
       players[idx].editing = true;
       renderSetupPlayers();
@@ -707,6 +715,7 @@
     document.getElementById('play-btn').onclick = function() {
       setupPage.style.display = 'none';
       mainPage.style.display = 'flex';
+      backBtnOuter.style.display = 'flex';
       switchPlayer(0);
       renderBubbles();
     };
@@ -716,6 +725,7 @@
     document.getElementById('back-btn').onclick = function() {
       mainPage.style.display = 'none';
       setupPage.style.display = 'flex';
+      backBtnOuter.style.display = 'none';
     };
     // --- MAIN PAGE LOGIC ---
     function switchPlayer(idx) {
@@ -726,7 +736,6 @@
     function updateMainPlayer() {
       let player = players[currentPlayerIdx];
       document.getElementById('main-player-title').innerHTML = `Fill Your Brain, <b>${player.name}</b>!`;
-      // Update quadrant fills
       ['q1','q2','q3','q4'].forEach(q=>{
         let quad = document.querySelector(`#${q} path`);
         quad.setAttribute("fill", player.state[q]?quadrantColors[q]:"#f7f7f7");
@@ -735,13 +744,11 @@
       document.getElementById('progressbar-inner').style.width = (player.progress*25)+'%';
       document.getElementById('progressbar-label').textContent = `${player.progress}/4`;
     }
-    // Card counter (for current player)
     function addCard(n) {
       let p = players[currentPlayerIdx];
       p.cardCounter = Math.max(0, p.cardCounter + n);
       document.getElementById('card-counter').textContent = p.cardCounter;
     }
-    // Quadrant fill colors
     const quadrantColors = {
       q1: "#d8c3fd", q2: "#ffe095", q3: "#7ce79d", q4: "#fff785"
     };
@@ -794,7 +801,6 @@
     function closeCardPopup() {
       document.getElementById("card-popup").style.display = "none";
     }
-    // Player bubbles
     function renderBubbles() {
       let row = document.getElementById('bubble-row');
       row.innerHTML = '';
@@ -812,7 +818,6 @@
         row.appendChild(div);
       });
     }
-    // Play again
     window.playAgainSamePeople = function(){
       players.forEach(p=>{
         p.state={q1:false,q2:false,q3:false,q4:false};
@@ -827,10 +832,10 @@
       document.getElementById("win-popup-multiplayer").style.display = "none";
       mainPage.style.display = 'none';
       setupPage.style.display = 'flex';
+      backBtnOuter.style.display = 'none';
       players = [];
       renderSetupPlayers();
     };
-    // History
     window.showHistory = function() {
       let html = players.map(p=>`<div style="display:flex;justify-content:space-between;"><span>${p.name}</span><b>${p.wins} win${p.wins>1?'s':''}</b></div>`).join("");
       if(!html) html = '<div style="color:#888;">No players yet.</div>';
@@ -838,7 +843,6 @@
       document.getElementById("history-popup").style.display = "flex";
     }
     function closeHistory(){document.getElementById("history-popup").style.display = "none";}
-    // On page load:
     renderSetupPlayers();
   </script>
 </body>
