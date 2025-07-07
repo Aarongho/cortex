@@ -2,324 +2,452 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Cortex Challenge</title>
+  <title>Cortex Multiplayer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Montserrat:wght@500&display=swap" rel="stylesheet">
   <style>
-body {
-  background: radial-gradient(ellipse at 55% 30%, #e6f0fa 70%, #b8deff 100%);
-  min-height: 100vh;
-  font-family: 'Montserrat', Arial, sans-serif;
-  display: flex; flex-direction: column; align-items: center;
-}
-.title {
-  font-family: 'Luckiest Guy', cursive;
-  font-size: 2.2em;
-  color: #522ab6;
-  margin: 26px 0 8px 0;
-  letter-spacing: 2.1px;
-  text-align: center;
-  text-shadow: 0 2px 18px #a19bff60, 2px 2px 0 #fff;
-  max-width: 98vw;
-  word-break: break-word;
-  line-height: 1.1;
-}
-.card-counter-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 12px;
-  margin-top: 2px;
-}
-.card-counter-outer {
-  background: linear-gradient(135deg, #fffbe7 0%, #ece6ff 70%);
-  box-shadow: 0 4px 14px #b3c6fa33;
-  border-radius: 100px;
-  padding: 0.65em 1.35em 0.65em 1.25em;
-  display: flex;
-  align-items: center;
-  font-size: 1.13em;
-  font-family: 'Luckiest Guy', cursive;
-  color: #4a2c94;
-  font-weight: bold;
-  letter-spacing: 1.2px;
-  min-width: 85px;
-  border: 3px solid #8570e6b9;
-}
-.card-counter-outer span:first-child {
-  font-size: 1em;
-  color: #4a2c94;
-  margin-right: 7px;
-  letter-spacing: 1px;
-}
-.counter-num {
-  font-size: 1.25em;
-  color: #1e0e55;
-  margin: 0 0 0 2px;
-  font-weight: bold;
-  font-family: 'Luckiest Guy', cursive;
-  letter-spacing: 2px;
-  border-radius: 8px;
-}
-.card-btn {
-  width: 62px; height: 62px;
-  border: none;
-  border-radius: 50%;
-  background: linear-gradient(135deg,#7f72f4 60%,#53bbff 100%);
-  color: #fff;
-  font-size: 2.7em;
-  font-family: 'Luckiest Guy', cursive;
-  box-shadow: 0 2px 18px #6e4af877;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background .14s, transform .13s;
-  outline: none;
-  user-select: none;
-  margin: 0 2px;
-  z-index: 1;
-}
-.card-btn:active { background: #62a7ff; transform: scale(0.92);}
-#history-btn {
-  margin-left: 10px;
-  background: linear-gradient(90deg, #ffd96c 0%, #ffeabb 100%);
-  color: #8d6600;
-  font-size: 1em;
-  border-radius: 1.4em;
-  padding: 0.42em 1.1em;
-  border: none;
-  font-family: 'Luckiest Guy', cursive;
-  font-weight: bold;
-  box-shadow: 0 3px 10px #ffd96666;
-  transition: background .17s, transform .12s;
-  cursor: pointer;
-}
-#history-btn:active { background: #ffcf8f; transform: scale(0.96);}
-#history-log {
-  font-size: 1em;
-  margin-bottom: 10px;
-  font-family: 'Montserrat', Arial, sans-serif;
-  color: #444;
-  text-align: center;
-  min-height: 1.5em;
-  letter-spacing: 1.1px;
-}
-.main-card {
-  background: rgba(255,255,255,0.96);
-  border-radius: 40px;
-  box-shadow: 0 16px 64px #4a70b466, 0 2px 0 #fff7;
-  padding: 28px 4vw 34px 4vw;
-  max-width: 490px;
-  width: 100%;
-  margin: 8px 0 38px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  backdrop-filter: blur(2px);
-  animation: popIn .4s;
-}
-.desc {
-  font-size: 1.18em;
-  color: #444;
-  margin-bottom: 10px;
-  text-align: center;
-  text-shadow: 0 1px 10px #fff7;
-  letter-spacing: 0.2px;
-}
-.big-card-brain {
-  background: #fff;
-  border-radius: 32px;
-  box-shadow: 0 6px 36px #d0d6ff44;
-  margin: 12px 0 0 0;
-  padding: 22px 0;
-  width: 100%;
-  display: flex; flex-direction: column; align-items: center;
-  max-width: 390px;
-}
-.svg-wrap {
-  width: 100%; max-width: 375px; margin: 0 auto 0 auto; display: flex; justify-content: center;
-  filter: drop-shadow(0 2px 24px #7e94ec29);
-}
-#brain {
-  width: 93vw; max-width: 340px; min-width: 160px; height: auto; display: block; margin: 0 auto;
-  touch-action: manipulation; transition: max-width 0.2s;
-  background: none;
-  border-radius: 44px;
-  box-shadow: 0 2px 18px #0001;
-  padding: 0.3em;
-}
-.quadrant path {
-  cursor: pointer;
-  transition: filter 0.21s, transform 0.17s, fill 0.43s;
-}
-.quadrant path:hover {
-  filter: brightness(1.18) drop-shadow(0 3px 18px #d8caf044);
-  transform: scale(1.028);
-  stroke-width: 8 !important;
-  opacity: 0.9;
-}
-.quadrant path:active {
-  filter: brightness(1.28) drop-shadow(0 2px 22px #a996ec33);
-  transform: scale(1.04);
-  opacity: 1;
-}
-.progressbar-wrap {
-  width: 98%;
-  margin: 13px auto 0 auto;
-  height: 26px;
-  background: #e7e4ff;
-  border-radius: 14px;
-  box-shadow: 0 2px 14px #c3bcff33;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.progressbar-inner {
-  height: 100%;
-  border-radius: 14px;
-  background: linear-gradient(90deg,#7845c5,#7dd888,#ffe080,#fdc657);
-  width: 0%;
-  transition: width .43s cubic-bezier(.47,.6,.54,1.43);
-  box-shadow: 0 0px 9px #dabfff59;
-}
-.progressbar-label {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #522ab6;
-  font-family: 'Luckiest Guy', cursive;
-  font-size: 1.07em;
-  letter-spacing: 1px;
-  text-shadow: 0 2px 10px #fff7;
-  z-index: 1;
-  pointer-events: none;
-  font-weight: bold;
-}
-.reset-btn {
-  display: inline-block;
-  margin-top: 19px;
-  padding: 1em 2.7em;
-  background: linear-gradient(90deg, #7845c5 0%, #4189ff 100%);
-  color: #fff;
-  font-size: 1.12em;
-  border: none;
-  border-radius: 2em;
-  cursor: pointer;
-  font-weight: 700;
-  letter-spacing: 1px;
-  box-shadow: 0 6px 22px #48307734, 0 2px 0 #fff2;
-  transition: background .22s, transform .14s, box-shadow .16s;
-  outline: none;
-}
-.reset-btn:active {
-  background: linear-gradient(90deg, #4189ff 0%, #7845c5 100%);
-  transform: scale(0.97);
-  box-shadow: 0 1px 4px #48307718;
-}
-.reset-btn:hover {
-  background: linear-gradient(90deg, #5b38b0 0%, #2e5bb8 100%);
-  transform: scale(1.06);
-}
-#popup, #win-popup, #card-popup {
-  display: none;
-  position: fixed; left: 0; top: 0; width: 100vw; height: 100vh;
-  background: rgba(34,30,60,0.21);
-  align-items: center; justify-content: center;
-  z-index: 99;
-  animation: fadeInBg 0.25s;
-}
-@keyframes fadeInBg {
-  from { background: rgba(34,30,60,0); }
-  to   { background: rgba(34,30,60,0.21);}
-}
-#popup-content, #win-content, #card-popup-content {
-  background: linear-gradient(135deg, #fff 60%, #e6f0fa 100%);
-  padding: 2.5em 1.7em 1.6em 1.7em;
-  border-radius: 40px;
-  box-shadow: 0 14px 56px #49307954, 0 2px 0 #fff4;
-  font-size: 1.3em;
-  text-align: center;
-  min-width: 240px;
-  max-width: 98vw;
-  border: 4px solid #7c56e6;
-  animation: popIn 0.22s cubic-bezier(.7,-0.4,.9,1.7);
-  position: relative;
-}
-@keyframes popIn {
-  0% { transform: scale(0.6); opacity: 0; }
-  80%{ transform: scale(1.07); }
-  100%{ transform: scale(1); opacity: 1; }
-}
-#popup-content button, #win-content button, #card-popup-content button {
-  margin: 16px 14px 0 14px;
-  padding: 0.7em 2.3em;
-  font-size: 1.08em;
-  border-radius: 1.7em;
-  border: none;
-  cursor: pointer;
-  background: linear-gradient(90deg, #6b3ad6 0%, #3a7ad6 100%);
-  color: #fff;
-  font-weight: 700;
-  font-family: 'Montserrat', Arial, sans-serif;
-  box-shadow: 0 2px 14px #49307944;
-  transition: background .19s, transform .13s;
-  outline: none;
-}
-#popup-content button:hover, #win-content button:hover, #card-popup-content button:hover {
-  background: linear-gradient(90deg, #3a7ad6 0%, #6b3ad6 100%);
-  transform: scale(1.08);
-}
-.smile-img, .sad-img {
-  width: 85px;
-  margin: 0.7em auto 0.4em auto;
-  display: block;
-  filter: drop-shadow(0 3px 14px #ffe77f77);
-  animation: popIn 0.18s;
-}
-.sad-img { filter: drop-shadow(0 3px 10px #ff7f7f77);}
-@media (max-width: 700px) {
-  .title { font-size: 1.09em;}
-  .main-card { padding: 5px 1vw 12px 1vw; border-radius: 17px; }
-  .card-counter-row { gap: 6px;}
-  .card-counter-outer { font-size: 0.88em; min-width: 46px; padding: 0.38em 0.5em;}
-  .counter-num { font-size: 0.9em;}
-  .card-btn { font-size: 1.5em; width: 38px; height: 38px;}
-  #history-btn { font-size: 0.77em; padding: 0.22em 0.38em;}
-  .big-card-brain { padding: 6px 0; border-radius: 8px; }
-  #brain { max-width: 97vw; min-width: 90px;}
-  .progressbar-wrap { height: 14px;}
-  .progressbar-label { font-size: 0.74em;}
-  .reset-btn { font-size: 0.89em; padding: 0.7em 1.6em; }
-  #popup-content, #win-content, #card-popup-content { font-size: 0.99em; padding: 1.2em 0.7em; min-width: 0;}
-  .smile-img, .sad-img { width: 45px;}
-}
+    body {
+      background: radial-gradient(ellipse at 55% 30%, #e6f0fa 70%, #b8deff 100%);
+      min-height: 100vh;
+      font-family: 'Montserrat', Arial, sans-serif;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .title {
+      font-family: 'Luckiest Guy', cursive;
+      font-size: 2.3em;
+      color: #522ab6;
+      margin: 30px 0 12px 0;
+      letter-spacing: 2px;
+      text-align: center;
+      text-shadow: 0 2px 18px #a19bff60, 2px 2px 0 #fff;
+      max-width: 98vw;
+      line-height: 1.15;
+    }
+    .setup-card, .main-card {
+      background: rgba(255,255,255,0.97);
+      border-radius: 38px;
+      box-shadow: 0 16px 64px #4a70b466, 0 2px 0 #fff7;
+      padding: 34px 5vw 40px 5vw;
+      max-width: 490px;
+      width: 100%;
+      margin: 12px 0 38px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: popIn .4s;
+    }
+    .setup-card {
+      min-height: 330px;
+    }
+    .setup-title {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 1.28em;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #444;
+      margin-bottom: 18px;
+      margin-top: 6px;
+    }
+    .setup-row {
+      display: flex; gap: 8px; margin-bottom: 18px; width: 100%; justify-content: center;
+    }
+    #player-input {
+      padding: 0.7em 1.4em;
+      font-size: 1.15em;
+      border-radius: 1.2em;
+      border: 2px solid #bbb;
+      font-family: 'Montserrat', Arial, sans-serif;
+      min-width: 120px;
+      outline: none;
+      margin-right: 3px;
+      transition: border .14s;
+    }
+    #player-input:focus {
+      border-color: #5e39e6;
+    }
+    #add-player-btn {
+      padding: 0.7em 1.6em;
+      font-size: 1.14em;
+      border-radius: 1.2em;
+      border: none;
+      background: linear-gradient(90deg, #7845c5 0%, #4189ff 100%);
+      color: #fff;
+      font-family: 'Luckiest Guy', cursive;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 12px #49307922;
+      transition: background .13s, transform .13s;
+    }
+    #add-player-btn:active {
+      background: linear-gradient(90deg, #4189ff 0%, #7845c5 100%);
+      transform: scale(0.97);
+    }
+    .player-list {
+      width: 100%;
+      max-width: 340px;
+      margin-bottom: 20px;
+    }
+    .player-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f6f5ff;
+      border-radius: 16px;
+      margin-bottom: 8px;
+      padding: 0.7em 1.1em;
+      font-size: 1.13em;
+      font-family: 'Luckiest Guy', cursive;
+      box-shadow: 0 2px 12px #d4cdfa20;
+      gap: 7px;
+      position: relative;
+    }
+    .player-row input[type=text] {
+      border: none; font-size: 1em; font-family: inherit; background: none; outline: none; min-width: 60px;
+      padding: 3px 3px;
+      border-bottom: 1.8px solid #8570e6b9;
+    }
+    .player-name-static {
+      font-family: 'Luckiest Guy', cursive;
+      letter-spacing: 1px;
+      color: #4a2c94;
+    }
+    .player-row .player-edit-btn, .player-row .player-delete-btn, .player-row .player-confirm-btn {
+      margin-left: 6px;
+      font-size: 0.99em;
+      border-radius: 1.1em;
+      border: none;
+      padding: 0.3em 1.1em;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .12s, color .1s;
+    }
+    .player-edit-btn { background: #e6e1ff; color: #6a38b1;}
+    .player-confirm-btn { background: #88dfb3; color: #11643a;}
+    .player-delete-btn { background: #ffd9d9; color: #c1353f;}
+    .player-edit-btn:active, .player-confirm-btn:active, .player-delete-btn:active { opacity: 0.7;}
+    .setup-actions {
+      display: flex; gap: 18px; margin-top: 12px; justify-content: center;
+      width: 100%;
+    }
+    .setup-actions button {
+      font-family: 'Luckiest Guy', cursive;
+      font-size: 1.17em;
+      padding: 0.7em 1.9em;
+      border-radius: 1.3em;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: background .17s, transform .12s;
+      box-shadow: 0 2px 14px #6752d833;
+      outline: none;
+    }
+    .play-btn { background: linear-gradient(90deg,#35c7e6,#45f8a9); color:#18182e;}
+    .play-btn:active { background: linear-gradient(90deg,#1c87a3,#2fd488);}
+    .reset-all-btn { background: linear-gradient(90deg,#e67245,#ffa476); color:#fff;}
+    .reset-all-btn:active { background: linear-gradient(90deg,#b25118,#ff876b);}
+    /* === Main Page === */
+    .player-names-row {
+      display: flex; flex-wrap: wrap; gap: 14px;
+      justify-content: center;
+      margin-bottom: 8px;
+      width: 100%;
+      max-width: 450px;
+    }
+    .main-player-btn {
+      background: #e8e7fe;
+      border-radius: 1.1em;
+      font-family: 'Luckiest Guy', cursive;
+      padding: 0.38em 1.2em;
+      font-size: 1.1em;
+      color: #5644a1;
+      border: 3px solid #b5aaf7;
+      margin-bottom: 0px;
+      cursor: pointer;
+      outline: none;
+      font-weight: 600;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 12px #cfccff18;
+      transition: background .13s, border .11s, color .13s, box-shadow .13s;
+      position: relative;
+    }
+    .main-player-btn.active, .main-player-btn:active {
+      background: linear-gradient(90deg,#c5e4f8,#c8fdc7);
+      border: 3px solid #44e697;
+      color: #16a169;
+      box-shadow: 0 2px 18px #b7ffcf70;
+      z-index: 2;
+    }
+    .main-player-progress {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 0.98em;
+      color: #444;
+      margin-left: 9px;
+      background: #ece7fd;
+      border-radius: 9px;
+      padding: 2px 9px;
+      font-weight: 700;
+      border: 1.5px solid #b5aaf7;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 10px #cfccff11;
+      position: absolute;
+      right: 0; top: -20px;
+      z-index: 2;
+    }
+    .progressbar-wrap {
+      width: 98%;
+      margin: 13px auto 0 auto;
+      height: 26px;
+      background: #e7e4ff;
+      border-radius: 14px;
+      box-shadow: 0 2px 14px #c3bcff33;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .progressbar-inner {
+      height: 100%;
+      border-radius: 14px;
+      background: linear-gradient(90deg,#7845c5,#7dd888,#ffe080,#fdc657);
+      width: 0%;
+      transition: width .43s cubic-bezier(.47,.6,.54,1.43);
+      box-shadow: 0 0px 9px #dabfff59;
+    }
+    .progressbar-label {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #522ab6;
+      font-family: 'Luckiest Guy', cursive;
+      font-size: 1.07em;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 10px #fff7;
+      z-index: 1;
+      pointer-events: none;
+      font-weight: bold;
+    }
+    /* ...bawah tetap sama */
+    .desc {
+      font-size: 1.18em;
+      color: #444;
+      margin-bottom: 10px;
+      text-align: center;
+      text-shadow: 0 1px 10px #fff7;
+      letter-spacing: 0.2px;
+    }
+    .big-card-brain {
+      background: #fff;
+      border-radius: 32px;
+      box-shadow: 0 6px 36px #d0d6ff44;
+      margin: 12px 0 0 0;
+      padding: 22px 0;
+      width: 100%;
+      display: flex; flex-direction: column; align-items: center;
+      max-width: 390px;
+    }
+    .svg-wrap {
+      width: 100%; max-width: 375px; margin: 0 auto 0 auto; display: flex; justify-content: center;
+      filter: drop-shadow(0 2px 24px #7e94ec29);
+    }
+    #brain {
+      width: 93vw; max-width: 340px; min-width: 160px; height: auto; display: block; margin: 0 auto;
+      touch-action: manipulation; transition: max-width 0.2s;
+      background: none;
+      border-radius: 44px;
+      box-shadow: 0 2px 18px #0001;
+      padding: 0.3em;
+    }
+    .quadrant path {
+      cursor: pointer;
+      transition: filter 0.21s, transform 0.17s, fill 0.43s;
+    }
+    .quadrant path:hover {
+      filter: brightness(1.18) drop-shadow(0 3px 18px #d8caf044);
+      transform: scale(1.028);
+      stroke-width: 8 !important;
+      opacity: 0.9;
+    }
+    .quadrant path:active {
+      filter: brightness(1.28) drop-shadow(0 2px 22px #a996ec33);
+      transform: scale(1.04);
+      opacity: 1;
+    }
+    .reset-btn {
+      display: inline-block;
+      margin-top: 19px;
+      padding: 1em 2.7em;
+      background: linear-gradient(90deg, #7845c5 0%, #4189ff 100%);
+      color: #fff;
+      font-size: 1.12em;
+      border: none;
+      border-radius: 2em;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 1px;
+      box-shadow: 0 6px 22px #48307734, 0 2px 0 #fff2;
+      transition: background .22s, transform .14s, box-shadow .16s;
+      outline: none;
+    }
+    .reset-btn:active {
+      background: linear-gradient(90deg, #4189ff 0%, #7845c5 100%);
+      transform: scale(0.97);
+      box-shadow: 0 1px 4px #48307718;
+    }
+    .reset-btn:hover {
+      background: linear-gradient(90deg, #5b38b0 0%, #2e5bb8 100%);
+      transform: scale(1.06);
+    }
+    .all-players-progress {
+      margin: 30px 0 0 0;
+      width: 100%;
+      max-width: 380px;
+    }
+    .all-player-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f6f5ff;
+      border-radius: 14px;
+      margin-bottom: 8px;
+      padding: 0.5em 1.2em;
+      font-size: 1.03em;
+      font-family: 'Luckiest Guy', cursive;
+      box-shadow: 0 2px 12px #d4cdfa18;
+      gap: 7px;
+      position: relative;
+    }
+    .all-player-name {
+      color: #4a2c94;
+      letter-spacing: 1px;
+      font-size: 1em;
+    }
+    .all-player-progress-bar {
+      flex: 1; margin-left: 15px; margin-right: 8px; height: 12px;
+      background: #e7e4ff;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      min-width: 60px;
+      max-width: 120px;
+      display: flex;
+      align-items: center;
+    }
+    .all-player-progress-inner {
+      height: 100%;
+      border-radius: 8px;
+      background: linear-gradient(90deg,#7845c5,#7dd888,#ffe080,#fdc657);
+      width: 0%;
+      transition: width .42s cubic-bezier(.47,.6,.54,1.43);
+    }
+    .all-player-progress-label {
+      position: absolute;
+      left: 50%; transform: translateX(-50%);
+      font-family: 'Luckiest Guy', cursive;
+      font-size: 0.98em;
+      color: #442099;
+      pointer-events: none;
+      top: -18px;
+    }
+    /* Popups & responsive */
+    #popup, #win-popup, #card-popup, #edit-popup, #history-popup, #win-popup-multiplayer {
+      display: none;
+      position: fixed; left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(34,30,60,0.21);
+      align-items: center; justify-content: center;
+      z-index: 99;
+      animation: fadeInBg 0.25s;
+    }
+    @keyframes fadeInBg {
+      from { background: rgba(34,30,60,0); }
+      to   { background: rgba(34,30,60,0.21);}
+    }
+    #popup-content, #win-content, #card-popup-content, #edit-popup-content, #history-popup-content, #win-popup-multiplayer-content {
+      background: linear-gradient(135deg, #fff 60%, #e6f0fa 100%);
+      padding: 2.5em 1.7em 1.6em 1.7em;
+      border-radius: 40px;
+      box-shadow: 0 14px 56px #49307954, 0 2px 0 #fff4;
+      font-size: 1.3em;
+      text-align: center;
+      min-width: 240px;
+      max-width: 98vw;
+      border: 4px solid #7c56e6;
+      animation: popIn 0.22s cubic-bezier(.7,-0.4,.9,1.7);
+      position: relative;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.6); opacity: 0; }
+      80%{ transform: scale(1.07); }
+      100%{ transform: scale(1); opacity: 1; }
+    }
+    #popup-content button, #win-content button, #card-popup-content button, #edit-popup-content button, #history-popup-content button, #win-popup-multiplayer-content button {
+      margin: 16px 14px 0 14px;
+      padding: 0.7em 2.3em;
+      font-size: 1.08em;
+      border-radius: 1.7em;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(90deg, #6b3ad6 0%, #3a7ad6 100%);
+      color: #fff;
+      font-weight: 700;
+      font-family: 'Montserrat', Arial, sans-serif;
+      box-shadow: 0 2px 14px #49307944;
+      transition: background .19s, transform .13s;
+      outline: none;
+    }
+    #popup-content button:hover, #win-content button:hover, #card-popup-content button:hover, #edit-popup-content button:hover, #history-popup-content button:hover, #win-popup-multiplayer-content button:hover {
+      background: linear-gradient(90deg, #3a7ad6 0%, #6b3ad6 100%);
+      transform: scale(1.08);
+    }
+    .smile-img, .sad-img {
+      width: 85px;
+      margin: 0.7em auto 0.4em auto;
+      display: block;
+      filter: drop-shadow(0 3px 14px #ffe77f77);
+      animation: popIn 0.18s;
+    }
+    .sad-img { filter: drop-shadow(0 3px 10px #ff7f7f77);}
+    @media (max-width: 700px) {
+      .title { font-size: 1.15em;}
+      .setup-card, .main-card { border-radius: 17px; }
+      .player-row, .all-player-row { font-size: 0.94em;}
+      .player-names-row, .all-players-progress { max-width: 98vw;}
+      .setup-actions button { font-size: 0.9em;}
+      .main-player-btn { font-size: 0.92em;}
+      .smile-img, .sad-img { width: 45px;}
+    }
   </style>
 </head>
 <body>
   <div class="title">Welcome To Cortex Challenge</div>
-  <div class="card-counter-row">
-    <div class="card-counter-outer" id="card-counter-label">
-      <span>CARD</span>
-      <span class="counter-num" id="card-counter">0</span>
+
+  <!-- Setup Page -->
+  <div id="setup-page" class="setup-card">
+    <div class="setup-title">Insert player names</div>
+    <div class="setup-row">
+      <input id="player-input" type="text" maxlength="18" placeholder="Player name..."/>
+      <button id="add-player-btn">Add</button>
     </div>
-    <button class="card-btn" onclick="addCard(1)">+</button>
-    <button class="card-btn" onclick="addCard(-1)">-</button>
-    <button id="history-btn" onclick="showHistory()">History</button>
+    <div id="setup-player-list" class="player-list"></div>
+    <div class="setup-actions">
+      <button class="play-btn" id="play-btn" disabled>Play</button>
+      <button class="reset-all-btn" id="reset-all-btn">Reset</button>
+      <button class="play-btn" id="show-history-btn" style="background:#ffe091;color:#844d00;">History</button>
+    </div>
   </div>
-  <div id="history-log"></div>
-  <div class="main-card">
-    <div class="desc">Fill Your Brain to win!</div>
+
+  <!-- Main Game Page (hidden at start) -->
+  <div id="main-page" class="main-card" style="display:none;">
+    <div class="player-names-row" id="main-player-row"></div>
+    <div class="desc" id="main-player-title">Fill Your Brain to win!</div>
     <div class="big-card-brain">
       <div class="svg-wrap">
         <svg id="brain" viewBox="0 0 400 400">
           <!-- Main outline -->
           <ellipse cx="200" cy="200" rx="192" ry="192" fill="#fff" stroke="#222" stroke-width="11"/>
-          <!-- Middle lines (vertical and horizontal, all black) -->
           <line x1="200" y1="20" x2="200" y2="380" stroke="#111" stroke-width="6"/>
           <line x1="20" y1="200" x2="380" y2="200" stroke="#111" stroke-width="6"/>
           <!-- Top Left Quadrant -->
@@ -370,7 +498,10 @@ body {
       <span class="progressbar-label" id="progressbar-label">0/4</span>
     </div>
     <button class="reset-btn" onclick="resetBrain()">Reset</button>
+    <!-- Progress list for all players -->
+    <div class="all-players-progress" id="all-players-progress"></div>
   </div>
+
   <!-- Popups -->
   <div id="popup">
     <div id="popup-content">
@@ -386,7 +517,7 @@ body {
   <div id="win-popup">
     <div id="win-content">
       <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f604.svg" class="smile-img" alt="smile"/>
-      <div style="font-size:1.3em; font-family:'Luckiest Guy',cursive;color:#35ba3d;letter-spacing:1px;">
+      <div style="font-size:1.3em; font-family:'Luckiest Guy',cursive;color:#35ba3d;letter-spacing:1px;" id="win-player-text">
         You Win!
       </div>
       <button onclick="resetBrain(true)">Play Again</button>
@@ -401,31 +532,200 @@ body {
       <button onclick="closeCardPopup()">OK</button>
     </div>
   </div>
+  <!-- Edit Confirm Popup -->
+  <div id="edit-popup">
+    <div id="edit-popup-content">
+      <div style="font-size:1.1em; font-family:'Luckiest Guy',cursive;color:#764cf8; margin-bottom:1em;">
+        Are you sure you want to confirm this change?
+      </div>
+      <button onclick="editConfirm(true)">Yes</button>
+      <button onclick="editConfirm(false)">No</button>
+    </div>
+  </div>
+  <!-- History Popup -->
+  <div id="history-popup">
+    <div id="history-popup-content">
+      <div style="font-size:1.18em; font-family:'Luckiest Guy',cursive;color:#5737d8; margin-bottom:1em;">
+        Player History
+      </div>
+      <div id="history-list"></div>
+      <button onclick="closeHistory()">Close</button>
+    </div>
+  </div>
+  <!-- Multiplayer win -->
+  <div id="win-popup-multiplayer">
+    <div id="win-popup-multiplayer-content">
+      <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f604.svg" class="smile-img" alt="smile"/>
+      <div id="multi-win-text" style="font-size:1.5em;font-family:'Luckiest Guy',cursive;color:#35ba3d;letter-spacing:1px;margin-bottom:18px"></div>
+      <button onclick="playAgainSamePeople()">Play again with same people</button>
+      <button onclick="playAgainAllOver()">Play all over again</button>
+    </div>
+  </div>
   <script>
+    // --- MULTIPLAYER SETUP ---
+    let players = []; // Array of {name, wins, progress, cardCounter, state:{q1...q4}}
+    let editIndex = null, tempName = '';
+    let mainPage = document.getElementById('main-page');
+    let setupPage = document.getElementById('setup-page');
+    let currentPlayerIdx = 0; // index in players array
+
+    // ------ SETUP PAGE LOGIC -----
+    function renderSetupPlayers() {
+      let list = document.getElementById('setup-player-list');
+      list.innerHTML = '';
+      players.forEach((p, i) => {
+        let row = document.createElement('div');
+        row.className = 'player-row';
+        if (p.editing) {
+          row.innerHTML = `<input type="text" value="${p.name}" maxlength="18" id="edit-input-${i}"/>
+            <button class="player-confirm-btn" onclick="triggerEditConfirm(${i})">Confirm</button>
+            <button class="player-delete-btn" onclick="deletePlayer(${i})">-</button>
+          `;
+        } else {
+          row.innerHTML = `<span class="player-name-static">${p.name}</span>
+            <button class="player-edit-btn" onclick="editPlayer(${i})">Edit</button>
+            <button class="player-delete-btn" onclick="deletePlayer(${i})">-</button>
+          `;
+        }
+        list.appendChild(row);
+      });
+      document.getElementById('play-btn').disabled = players.length < 1;
+    }
+    document.getElementById('add-player-btn').onclick = function() {
+      let v = document.getElementById('player-input').value.trim();
+      if (!v) return;
+      players.push({
+        name: v,
+        wins: 0,
+        progress: 0,
+        cardCounter: 0,
+        state: { q1: false, q2: false, q3: false, q4: false },
+        editing: false
+      });
+      document.getElementById('player-input').value = '';
+      renderSetupPlayers();
+    }
+    document.getElementById('player-input').addEventListener("keydown",function(e){
+      if(e.key==="Enter")document.getElementById('add-player-btn').click();
+    });
+
+    window.editPlayer = function(idx) {
+      players[idx].editing = true;
+      renderSetupPlayers();
+      setTimeout(() => {
+        document.getElementById(`edit-input-${idx}`).focus();
+      }, 0);
+    };
+    window.deletePlayer = function(idx) {
+      players.splice(idx,1);
+      renderSetupPlayers();
+    };
+    window.triggerEditConfirm = function(idx) {
+      editIndex = idx;
+      tempName = document.getElementById(`edit-input-${idx}`).value.trim();
+      document.getElementById("edit-popup").style.display = "flex";
+    };
+    window.editConfirm = function(yes) {
+      document.getElementById("edit-popup").style.display = "none";
+      if (yes && editIndex !== null && tempName) {
+        players[editIndex].name = tempName;
+      }
+      players.forEach(p => p.editing = false);
+      renderSetupPlayers();
+      editIndex = null; tempName = '';
+    };
+    document.getElementById('reset-all-btn').onclick = function() {
+      players = [];
+      renderSetupPlayers();
+    };
+    document.getElementById('play-btn').onclick = function() {
+      setupPage.style.display = 'none';
+      mainPage.style.display = 'flex';
+      switchPlayer(0);
+      renderMainPlayerRow();
+      renderAllPlayersProgress();
+    };
+    document.getElementById('show-history-btn').onclick = function() {
+      showHistory();
+    };
+    // ---- MAIN PAGE LOGIC ----
+    function switchPlayer(idx) {
+      currentPlayerIdx = idx;
+      updateMainPlayer();
+    }
+    function renderMainPlayerRow() {
+      let row = document.getElementById('main-player-row');
+      row.innerHTML = '';
+      players.forEach((p, i) => {
+        let btn = document.createElement('button');
+        btn.className = 'main-player-btn'+(i===currentPlayerIdx?' active':'');
+        btn.onclick = ()=>switchPlayer(i);
+        btn.innerHTML = `${p.name}<span class="main-player-progress">${p.progress}/4</span>`;
+        row.appendChild(btn);
+      });
+    }
+    function renderAllPlayersProgress() {
+      let box = document.getElementById('all-players-progress');
+      box.innerHTML = '';
+      players.forEach((p,i)=>{
+        let row = document.createElement('div');
+        row.className = 'all-player-row';
+        row.innerHTML = `
+          <span class="all-player-name">${p.name}</span>
+          <div class="all-player-progress-bar">
+            <div class="all-player-progress-inner" style="width:${(p.progress/4)*100}%;"></div>
+            <span class="all-player-progress-label">${p.progress}/4</span>
+          </div>
+        `;
+        box.appendChild(row);
+      });
+    }
+    function updateMainPlayer() {
+      // Update all visual and data for current player
+      let player = players[currentPlayerIdx];
+      document.getElementById('main-player-title').innerHTML = `Fill Your Brain, <b>${player.name}</b>!`;
+      // Update quadrant fills
+      let qlist = ['q1','q2','q3','q4'];
+      qlist.forEach(q=>{
+        let quad = document.querySelector(`#${q} path`);
+        quad.setAttribute("fill", player.state[q]?quadrantColors[q]:"#f7f7f7");
+      });
+      // Update card counter
+      document.getElementById('card-counter').textContent = player.cardCounter;
+      // Update progress bar
+      document.getElementById('progressbar-inner').style.width = (player.progress*25)+'%';
+      document.getElementById('progressbar-label').textContent = `${player.progress}/4`;
+      renderMainPlayerRow();
+      renderAllPlayersProgress();
+    }
+
+    // Card counter (for current player)
     let cardCounter = 0;
     let winHistory = 0;
     function updateCounter() {
-      document.getElementById('card-counter').textContent = cardCounter;
+      document.getElementById('card-counter').textContent = players[currentPlayerIdx].cardCounter;
     }
     function addCard(n) {
-      cardCounter = Math.max(0, cardCounter + n);
+      let p = players[currentPlayerIdx];
+      p.cardCounter = Math.max(0, p.cardCounter + n);
       updateCounter();
     }
 
+    // Quadrant fill colors
     const quadrantColors = {
       q1: "#d8c3fd",
       q2: "#ffe095",
       q3: "#7ce79d",
       q4: "#fff785"
     };
-    let state = { q1: false, q2: false, q3: false, q4: false };
     let currentQuadrant = null;
 
     ["q1", "q2", "q3", "q4"].forEach(qid => {
       document.getElementById(qid).addEventListener("click", function() {
-        if(state[qid]) return;
+        let p = players[currentPlayerIdx];
+        if(p.state[qid]) return;
         currentQuadrant = qid;
-        if(cardCounter < 2) {
+        if(p.cardCounter < 2) {
           document.getElementById("card-popup").style.display = "flex";
           return;
         }
@@ -435,62 +735,76 @@ body {
 
     window.popupConfirm = function(answer) {
       document.getElementById("popup").style.display = "none";
+      let p = players[currentPlayerIdx];
       if(answer && currentQuadrant) {
         let quad = document.querySelector(`#${currentQuadrant} path`);
         quad.setAttribute("fill", quadrantColors[currentQuadrant]);
         quad.style.transition = "fill 0.4s";
-        state[currentQuadrant] = true;
-        cardCounter -= 2;
+        p.state[currentQuadrant] = true;
+        p.cardCounter -= 2;
+        // update progress
+        p.progress = Object.values(p.state).filter(v=>v).length;
         updateCounter();
-        updateProgress();
-        checkWin();
+        updateMainPlayer();
+        if(p.progress === 4){
+          p.wins++;
+          setTimeout(()=>{
+            document.getElementById("multi-win-text").innerHTML = `<b>${p.name} wins!</b>`;
+            document.getElementById("win-popup-multiplayer").style.display = "flex";
+          }, 500);
+        }
       }
       currentQuadrant = null;
     };
 
-    function checkWin() {
-      if(state.q1 && state.q2 && state.q3 && state.q4) {
-        setTimeout(()=>{
-          document.getElementById("win-popup").style.display = "flex";
-          winHistory++;
-        }, 400);
-      }
-    }
-
-    function updateProgress() {
-      let fillCount = Object.values(state).filter(v=>v).length;
-      let percent = Math.min(100, fillCount * 25);
-      document.getElementById('progressbar-inner').style.width = percent + '%';
-      document.getElementById('progressbar-label').textContent = `${fillCount}/4`;
-    }
-
     function resetBrain(hideWin) {
-      ["q1", "q2", "q3", "q4"].forEach(qid => {
-        let quad = document.querySelector(`#${qid} path`);
-        quad.setAttribute("fill", "#f7f7f7");
-        state[qid] = false;
-      });
-      if(hideWin) document.getElementById("win-popup").style.display = "none";
-      cardCounter = 0;
+      let p = players[currentPlayerIdx];
+      p.state = {q1:false, q2:false, q3:false, q4:false};
+      p.progress = 0;
+      p.cardCounter = 0;
       updateCounter();
-      updateProgress();
-      updateHistory();
+      updateMainPlayer();
+      if(hideWin) document.getElementById("win-popup").style.display = "none";
     }
 
     function closeCardPopup() {
       document.getElementById("card-popup").style.display = "none";
     }
 
-    function showHistory() {
-      updateHistory();
-      let txt = winHistory === 0 ? "No wins yet." :
-        `<b>Total Wins:</b> <span style="color:#4225bb">${winHistory}</span>`;
-      document.getElementById('history-log').innerHTML = txt;
-      setTimeout(()=>{ document.getElementById('history-log').innerHTML=''; }, 3000);
+    // Play again with same people
+    window.playAgainSamePeople = function(){
+      players.forEach(p=>{
+        p.state={q1:false,q2:false,q3:false,q4:false};
+        p.progress=0;
+        p.cardCounter=0;
+      });
+      document.getElementById("win-popup-multiplayer").style.display = "none";
+      switchPlayer(0);
+      renderMainPlayerRow();
+      renderAllPlayersProgress();
+    };
+    window.playAgainAllOver = function(){
+      document.getElementById("win-popup-multiplayer").style.display = "none";
+      mainPage.style.display = 'none';
+      setupPage.style.display = 'flex';
+      players = [];
+      renderSetupPlayers();
+    };
+
+    // ---- History ----
+    window.showHistory = function() {
+      let html = players.map(p=>`<div style="display:flex;justify-content:space-between;"><span>${p.name}</span><b>${p.wins} win${p.wins>1?'s':''}</b></div>`).join("");
+      if(!html) html = '<div style="color:#888;">No players yet.</div>';
+      document.getElementById("history-list").innerHTML = html;
+      document.getElementById("history-popup").style.display = "flex";
     }
-    function updateHistory() {}
-    updateCounter();
-    updateProgress();
+    function closeHistory(){
+      document.getElementById("history-popup").style.display = "none";
+    }
+
+    // On page load:
+    renderSetupPlayers();
+
   </script>
 </body>
 </html>
