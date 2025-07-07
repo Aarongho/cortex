@@ -212,13 +212,15 @@
       letter-spacing: 2px;
       border-radius: 8px;
     }
+    /*--- Perbesar tombol + dan - di bawah ini ---*/
     .card-btn {
-      width: 42px; height: 42px;
+      width: 58px;
+      height: 58px;
       border: none;
       border-radius: 50%;
       background: linear-gradient(135deg,#7f72f4 60%,#53bbff 100%);
       color: #fff;
-      font-size: 1.5em;
+      font-size: 2.3em;
       font-family: 'Luckiest Guy', cursive;
       box-shadow: 0 2px 9px #6e4af877;
       cursor: pointer;
@@ -232,6 +234,14 @@
       z-index: 1;
     }
     .card-btn:active { background: #62a7ff; transform: scale(0.92);}
+    @media (max-width: 700px) {
+      .card-btn {
+        font-size: 1.4em;
+        width: 36px;
+        height: 36px;
+      }
+    }
+    /*--- Selesai tombol diperbesar ---*/
     #history-btn {
       margin-left: 6px;
       background: linear-gradient(90deg, #ffd96c 0%, #ffeabb 100%);
@@ -482,7 +492,7 @@
       .card-counter-row { gap: 5px;}
       .card-counter-outer { font-size: 0.7em; min-width: 34px; padding: 0.21em 0.5em;}
       .counter-num { font-size: 0.75em;}
-      .card-btn { font-size: 0.9em; width: 24px; height: 24px;}
+      /* Sudah ada perubahan card-btn di atas */
       #history-btn { font-size: 0.65em; padding: 0.11em 0.19em;}
       .bubble-row { max-width: 97vw;}
       .bubble-player { min-width: 52px; padding: 2px 7px 6px 7px;}
@@ -585,11 +595,6 @@
     <div class="bubble-row" id="bubble-row"></div>
   </div>
   <!-- Popups and script... -->
-  <!-- (LANJUTAN: copy semua popup dan script PERSIS seperti versi sebelumnya, tidak berubah) -->
-  <!-- ... [cut for brevity, scroll up for script & popup, paste from previous answer] ... -->
-  <!-- Popups and <script> sama persis kayak code sebelumnya, tidak ada perubahan. -->
-  <!-- ... Mulai dari <div id="popup"> ... hingga akhir script ... -->
-  <!-- Copy bagian popups dan script dari jawaban sebelumnya di atas! -->
   <div id="popup">
     <div id="popup-content">
       <div style="font-size:1.13em; font-family:'Luckiest Guy',cursive;color:#764cf8;">
